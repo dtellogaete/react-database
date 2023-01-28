@@ -1,32 +1,28 @@
 import Table from 'react-bootstrap/Table';
-import Container from 'react-bootstrap/Container';
 
-const Employees = () => {
-    return ( 
-        
+const Employees = (props) => {
+    const {dataset} = props;
+    
+    return (         
             <Table striped bordered hover style = {{ paddingTop: '50px', padding: '20px'}}>
             <thead>
-                <tr>          
+                <tr>
+                <th>ID</th>          
                 <th>Colaborador</th>
                 <th>Email</th>            
                 </tr>
             </thead>
-            <tbody>
-                <tr>        
-                    <td>Mark</td>
-                    <td>mark@gmail.com</td>    
-                </tr>
-                <tr>        
-                    <td>Jacob</td>
-                    <td>Thornton</td>       
-                </tr>
+            <tbody>                  
+                {dataset.map((item, index) =>
                 <tr>
-                    <td>Larry</td>
-                    <td>@twitter</td>
+                    <td>{index+1}</td>        
+                    <td>{item.name}</td>
+                    <td>{item.email}</td>    
                 </tr>
+                )};
+                
             </tbody>
-        </Table>
-           
+        </Table>           
     );
 }
 

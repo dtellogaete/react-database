@@ -21,3 +21,7 @@ code {
   margin: 0 !important;
   max-width: 100% !important;
 }
+
+.EmployeesTable{
+  padding: 30px !important;
+}
