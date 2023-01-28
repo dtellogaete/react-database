@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Renderización dinámica de los componentes
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Base de datos de los colaboradores
+
+La página puede visualizarse en  [https://dtellogaete.github.io/react-database/](https://dtellogaete.github.io/react-database/).
 
