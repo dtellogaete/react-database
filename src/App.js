@@ -35,22 +35,29 @@ const App = () =>{
 
     const [searchTerm, setSearchTerm] = useState('');
     const [results, setResults] = useState(formData.data);
+    const [dataSearch, setDataSearch] = useState(false);
 
     const handleSearch = event => {
-      if (event.keyCode === 13 && results !== '') {
-        setSearchTerm(event.target.value);
+      setSearchTerm(event.target.value);
+      if (searchTerm === '') {
+        setDataSearch(false);
+        setResults(formData.data);
+      } else {
         const filteredResults = formData.data.filter(item =>
           item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           item.email.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        ); 
+        setDataSearch(true);       
         setResults(filteredResults);
-        setDataSearch(true)
-      }else{
-        setDataSearch(false)
       }
-    };
+    }
 
-    const [dataSearch, setDataSearch] = useState(false);
+    console.log(searchTerm);
+    console.log(searchTerm.length)
+    console.log(searchTerm == '')
+    console.log("dataSearch"+dataSearch);
+
+  
 
   return (
     <div className="App">
@@ -73,8 +80,7 @@ const App = () =>{
                             aria-label="Default"
                             aria-describedby="inputGroup-sizing-default"
                             placeholder='Busca un colaborador'
-                            onKeyDown={handleSearch}
-                            name='dataSearch'
+                            onChange={handleSearch}                          
                         />
                     </InputGroup>                              
                 </Navbar.Brand>                      
@@ -111,7 +117,9 @@ const App = () =>{
             </Form.Group>                     
         </Form>
         <div className='EmployeesTable'>       
-        <Employees dataset = {dataSearch === true ? results : formData.data}></Employees>
+        <Employees dataset = {dataSearch ? results : formData.data}></Employees>
+        <Employees dataset = {results}></Employees>
+        
         </div>        
       </Container>      
     </div>

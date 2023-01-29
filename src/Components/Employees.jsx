@@ -19,7 +19,7 @@ const Employees = (props) => {
                     <td>{item.name}</td>
                     <td>{item.email}</td>    
                 </tr>
-                )};
+                )}
                 
             </tbody>
         </Table>           
