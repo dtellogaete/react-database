@@ -17,7 +17,7 @@ Agrega un nuevo coloraborado usando el formulario.
 
     const [searchTerm, setSearchTerm] = useState('');  
 ```
-* `formData`: Es un dataset con los datos de los colaboradores (nombre y correo electrónico), el estado inicial es un objeto con las propiedades "name", "email" y "data", donde "name" y "email" tienen un valor vacío y "data" contiene un arreglo con los datos de 3 colaboradores ['src/Data/Employees']('src/Data/Employees.jsx')
+* `formData`: Es un dataset con los datos de los colaboradores (nombre y correo electrónico), el estado inicial es un objeto con las propiedades "name", "email" y "data", donde "name" y "email" tienen un valor vacío y "data" contiene un arreglo con los datos de 3 colaboradores ['src/Data/Employees'](src/Data/Employees.jsx)
 
 ```
 const handleChange = (event) => {      
