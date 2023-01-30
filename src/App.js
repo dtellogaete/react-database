@@ -31,9 +31,9 @@ const App = () =>{
   }; 
 
   const [searchTerm, setSearchTerm] = useState('');
+  
   const handleSearch = event => {
-    setSearchTerm(event.target.value);
-    
+    setSearchTerm(event.target.value);    
   };    
 
   return (
