@@ -1,8 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Employees from './Components/Employees';
 import {database} from './Data/Employees';
 import React, { useState} from 'react';
-import { Form, Button, Container, Navbar, InputGroup} from 'react-bootstrap';
+import { Form, Button, Container, Navbar, InputGroup, Table} from 'react-bootstrap';
 
 const App = () =>{
 
@@ -12,52 +11,30 @@ const App = () =>{
     data: database
   });
 
-    const handleChange = (event) => {      
-      setFormData({
-        ...formData,
-        [event.target.name]: event.target.value
-      });
-      
-    }
+  const handleChange = (event) => {      
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    });
+    
+  };
   
-    const handleSubmit = (event) => {     
-      
-      event.preventDefault();
-      setFormData({
-        ...formData,
-        data: formData.data.concat({name: formData.name, email: formData.email}),
-        name: '',
-        email: '',
-      });
-      
-      console.log(formData.data);      
-    }
+  const handleSubmit = (event) => {      
+    event.preventDefault();
+    setFormData({
+      ...formData,
+      data: formData.data.concat({name: formData.name, email: formData.email}),
+      name: '',
+      email: '',
+    });      
+    console.log(formData.data);      
+  }; 
 
-    const [searchTerm, setSearchTerm] = useState('');
-    const [results, setResults] = useState(formData.data);
-    const [dataSearch, setDataSearch] = useState(false);
-
-    const handleSearch = event => {
-      setSearchTerm(event.target.value);
-      if (searchTerm === '') {
-        setDataSearch(false);
-        setResults(formData.data);
-      } else {
-        const filteredResults = formData.data.filter(item =>
-          item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          item.email.toLowerCase().includes(searchTerm.toLowerCase())
-        ); 
-        setDataSearch(true);       
-        setResults(filteredResults);
-      }
-    }
-
-    console.log(searchTerm);
-    console.log(searchTerm.length)
-    console.log(searchTerm == '')
-    console.log("dataSearch"+dataSearch);
-
-  
+  const [searchTerm, setSearchTerm] = useState('');
+  const handleSearch = event => {
+    setSearchTerm(event.target.value);
+    
+  };    
 
   return (
     <div className="App">
@@ -79,8 +56,8 @@ const App = () =>{
                         <Form.Control
                             aria-label="Default"
                             aria-describedby="inputGroup-sizing-default"
-                            placeholder='Busca un colaborador'
-                            onChange={handleSearch}                          
+                            placeholder='Busca un colaborador'                          
+                            onKeyDown={handleSearch}                                                   
                         />
                     </InputGroup>                              
                 </Navbar.Brand>                      
@@ -116,10 +93,31 @@ const App = () =>{
                 </Button>
             </Form.Group>                     
         </Form>
-        <div className='EmployeesTable'>       
-        <Employees dataset = {dataSearch ? results : formData.data}></Employees>
-        <Employees dataset = {results}></Employees>
-        
+        <div className='EmployeesTable'>         
+        <Table striped bordered hover style = {{ paddingTop: '50px', padding: '20px'}}>
+            <thead>
+                <tr>
+                <th>ID</th>          
+                <th>Colaborador</th>
+                <th>Email</th>            
+                </tr>
+            </thead>           
+            <tbody>                  
+              {formData.data.filter((item) => {
+                if (searchTerm === '') {
+                    return item;
+                } else {
+                    return item.name.toLowerCase().includes(searchTerm.toLowerCase());
+                }
+            }).map((item, index) =>
+                <tr key={index + 1}>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>{item.email}</td>                    
+                </tr>
+            )}                                                   
+            </tbody>
+        </Table>        
         </div>        
       </Container>      
     </div>
