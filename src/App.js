@@ -6,6 +6,7 @@ import { Form, Button, Container, Navbar, InputGroup, Table} from 'react-bootstr
 const App = () =>{
 
   const [formData, setFormData] = useState({
+    id: '',
     name: '',
     email: '',
     data: database
@@ -21,9 +22,10 @@ const App = () =>{
   
   const handleSubmit = (event) => {      
     event.preventDefault();
+    const nextId = formData.data.length + 1;
     setFormData({
       ...formData,
-      data: formData.data.concat({name: formData.name, email: formData.email}),
+      data: formData.data.concat({id: nextId, name: formData.name, email: formData.email}),
       name: '',
       email: '',
     });      
@@ -31,7 +33,7 @@ const App = () =>{
   }; 
 
   const [searchTerm, setSearchTerm] = useState('');
-  
+
   const handleSearch = event => {
     setSearchTerm(event.target.value);    
   };    
@@ -107,11 +109,12 @@ const App = () =>{
                 if (searchTerm === '') {
                     return item;
                 } else {
-                    return item.name.toLowerCase().includes(searchTerm.toLowerCase());
+                    return (item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            item.email.toLowerCase().includes(searchTerm.toLowerCase()));
                 }
             }).map((item, index) =>
-                <tr key={index + 1}>
-                    <td>{index + 1}</td>
+                <tr key={item.id}>
+                    <td>{item.id}</td>
                     <td>{item.name}</td>
                     <td>{item.email}</td>                    
                 </tr>
